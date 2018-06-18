@@ -1,0 +1,8 @@
+@startuml
+[*]    -> Patrol      : default
+Patrol -> Fight       : isFight is true
+Patrol -up-> RunWay   : isFight is false
+Fight  -> Patrol      : victory!
+Fight  -> RunWay      : failure!
+RunWay -down-> Patrol : isSafe
+@enduml

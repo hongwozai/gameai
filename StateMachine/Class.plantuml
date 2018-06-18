@@ -1,0 +1,18 @@
+@startuml
+State <|-- RunWay
+State <|-- Patrol
+State <|-- Fight
+Troll *-- State
+
+State : void enter() = 0
+State : void exit() = 0
+State : void execute(Troll *troll) = 0
+
+Troll : void update()
+Troll : void changeState(State *state)
+Troll : Troll(State *state)
+Troll : isSafe()
+Troll : isFight()
+Troll : isVictroy()
+Troll : shared_ptr<State> state;
+@enduml
