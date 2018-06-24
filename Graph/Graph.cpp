@@ -182,7 +182,9 @@ bool GraphDFS<Graph>::search()
 
         typename Graph::EdgeIterator iter(graph, curr->getTo());
         for (Edge *e = iter.begin(); !iter.end(); e = iter.next()) {
-            stack.push(e);
+            if (visited[e->getTo()] == UNVISITED) {
+                stack.push(e);
+            }
         }
 
     }
