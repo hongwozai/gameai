@@ -222,6 +222,64 @@ public:
     bool isFound() const { return found; }
 
     std::string debugRoute();
+    std::list<Index> getRoute();
+
+private:
+
+    enum {
+        VISITED,
+        UNVISITED,
+        NO_PARENT_ASSIGNED = -1,
+    };
+
+private:
+
+    Graph &graph;
+
+    // 源与目的的索引
+    Index source;
+    Index target;
+
+    // 已参观
+    std::vector<int> visited;
+
+    // 到达目标所走过的路径
+    std::vector<Index> route;
+
+    // 是否找到路径
+    bool found;
+};
+
+template <class Graph>
+class GraphDijkstra
+{
+public:
+
+    typedef typename Graph::EdgeType Edge;
+    typedef typename Graph::NodeType Node;
+    typedef typename Graph::IndexType Index;
+
+public:
+
+    GraphDijkstra(Graph &graph, int source, int target = -1)
+        : graph(graph),
+          source(source),
+          target(target),
+          visited(graph.getNodesNum(), UNVISITED),
+          route(graph.getNodesNum(), NO_PARENT_ASSIGNED),
+          found(false)
+    {
+        found = search();
+    }
+
+    ~GraphDijkstra() {}
+
+    bool search();
+
+    bool isFound() const { return found; }
+
+    std::string debugRoute();
+    std::list<Index> getRoute();
 
 private:
 
