@@ -255,7 +255,15 @@ bool GraphDijkstra<Graph>::search()
                 continue;
             }
             // set new cost
-            auto newCost = curr.first + e->getWeight();
+            /**
+             * A*算法
+             * 改为A*算法很简单
+             * 两个要点：
+             * 1. Cost加上FCost，排列的时候使用这个进行排列
+             *    以前的curr.first，现在first为FCost，所以要取出GCost来
+             * 2. 保留原Cost(不加FCost的值，这个用于下一次计算)
+             */
+            auto newCost = curr.first + e->getWeight() /* + FCost */;
             pq.push(pair<double, Edge*>(newCost, e));
         }
     }
