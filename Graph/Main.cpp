@@ -92,6 +92,38 @@ TEST(graph, dfs)
     GraphDFS<SparseGraph<GraphNode, GraphEdge> > dfs(graph, 0, 2);
     EXPECT_TRUE(dfs.isFound());
     EXPECT_STREQ(dfs.debugRoute().data(), "2, 3, 1, 0");
+    list<int> path = dfs.getRoute();
+}
+
+TEST(graph, dijkstra)
+{
+    SparseGraph<GraphNode, GraphEdge> graph;
+    GraphNode n;
+    GraphEdge e1(0, 1, 1);
+    GraphEdge e2(0, 2, 4);
+    GraphEdge e3(1, 3, 2);
+    GraphEdge e5(3, 4, 1.5);
+    GraphEdge e4(3, 2, 0.5);
+
+    ASSERT_EQ(0, graph.addNode(n));
+    ASSERT_EQ(1, graph.addNode(n));
+    ASSERT_EQ(2, graph.addNode(n));
+    ASSERT_EQ(3, graph.addNode(n));
+    ASSERT_EQ(4, graph.addNode(n));
+
+    graph.addEdge(e1);
+    graph.addEdge(e2);
+    graph.addEdge(e3);
+    graph.addEdge(e5);
+    graph.addEdge(e4);
+
+    ASSERT_EQ(graph.getEdgesNum(), 5);
+    ASSERT_EQ(5, graph.getActiveNodesNum());
+
+    GraphDijkstra<SparseGraph<GraphNode, GraphEdge> > dijkstra(graph, 0, 2);
+    std::list<int> path = dijkstra.getRoute();
+    copy(path.begin(), path.end(), ostream_iterator<int>(cout, " "));
+    cout << endl;
 }
 
 int main(int argc, char *argv[])

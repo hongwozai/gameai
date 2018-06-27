@@ -204,3 +204,75 @@ std::string GraphDFS<Graph>::debugRoute()
     ss << source;
     return ss.str();
 }
+
+template <class Graph>
+std::list<typename GraphDFS<Graph>::Index> GraphDFS<Graph>::getRoute()
+{
+    std::list<Index> path;
+    Index from = target;
+
+    while (from != source) {
+        path.push_front(from);
+        from = route[from];
+    }
+    path.push_front(source);
+    return std::move(path);
+}
+
+#include <queue>
+
+template <class Graph>
+bool GraphDijkstra<Graph>::search()
+{
+    using namespace std;
+    typedef pair<double, Edge*> P;
+    priority_queue<P, vector<P>, greater<P> > pq;
+    Edge dummy(source, source, 0);
+
+    pq.push(pair<double, Edge*>(0, &dummy));
+    while (!pq.empty()) {
+        auto curr = pq.top();
+        pq.pop();
+
+        if (visited[curr.second->getTo()] == VISITED) {
+            continue;
+        }
+
+        visited[curr.second->getTo()] = VISITED;
+        route[curr.second->getTo()] = curr.second->getFrom();
+
+        if (curr.second->getTo() == target) {
+            found = true;
+            // return found = true;
+        }
+
+        cout << "vis: " << curr.second->getTo()
+             << " weight: " << curr.first << endl;
+
+        typename Graph::EdgeIterator iter(graph, curr.second->getTo());
+        for (Edge *e = iter.begin(); !iter.end(); e = iter.next()) {
+            if (visited[e->getTo()] == VISITED) {
+                continue;
+            }
+            // set new cost
+            auto newCost = curr.first + e->getWeight();
+            pq.push(pair<double, Edge*>(newCost, e));
+        }
+    }
+
+    return false;
+}
+
+template <class Graph>
+std::list<typename GraphDijkstra<Graph>::Index> GraphDijkstra<Graph>::getRoute()
+{
+    std::list<Index> path;
+    Index from = target;
+
+    while (from != source) {
+        path.push_front(from);
+        from = route[from];
+    }
+    path.push_front(source);
+    return std::move(path);
+}
