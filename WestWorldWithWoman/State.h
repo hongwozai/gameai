@@ -1,6 +1,8 @@
 #ifndef STATE_H
 #define STATE_H
 
+#include "Message.h"
+
 template <class Entity>
 class State
 {
@@ -10,6 +12,8 @@ public:
     virtual void execute(Entity *entity) = 0;
     virtual void enter(Entity *entity)   = 0;
     virtual void exit(Entity *entity)    = 0;
+
+    virtual bool onMessage(Entity *entity, Telegram &telegram) = 0;
 
 protected:
     State() {}
@@ -43,6 +47,8 @@ public:
     void setCurrentState(State<Entity> *s) { currentState = s; };
     void setPrevState(State<Entity> *s) { previousState = s; };
     void setGlobalState(State<Entity> *s) { globalState = s; };
+
+    bool handleMessage(Telegram &telegram);
 
 private:
 
@@ -83,6 +89,13 @@ void StateMachine<Entity>::revertToPrevState()
     currentState->exit(entity);
     currentState = previousState;
     currentState->enter(entity);
+}
+
+template <class Entity>
+bool StateMachine<Entity>::handleMessage(Telegram &telegram)
+{
+    return ((currentState && currentState->onMessage(entity, telegram)) &&
+            (globalState && globalState->onMessage(entity, telegram)));
 }
 
 #endif /* STATE_H */

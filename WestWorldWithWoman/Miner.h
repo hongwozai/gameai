@@ -2,6 +2,7 @@
 #define MINER_H
 
 #include "State.h"
+#include "Message.h"
 #include "BaseGameEntity.h"
 
 class Miner : public BaseGameEntity
@@ -25,6 +26,8 @@ public:
 
     bool Thirsty();
 
+    bool handleMessage(Telegram &telegram);
+
 public:
 
     StateMachine<Miner> machine;
@@ -44,6 +47,7 @@ public:
     void execute(Miner *entity);
     void enter(Miner *entity);
     void exit(Miner* entity);
+    bool onMessage(Miner *miner, Telegram &telegram) { return true; }
 
     // singleton
     static State *instance() {
@@ -58,6 +62,7 @@ public:
     void execute(Miner *entity);
     void enter(Miner *entity);
     void exit(Miner* entity);
+    bool onMessage(Miner *miner, Telegram &telegram) { return true; }
 
     static State *instance() {
         static QuenchThirst in;
@@ -71,6 +76,7 @@ public:
     void execute(Miner *entity);
     void enter(Miner *entity);
     void exit(Miner* entity);
+    bool onMessage(Miner *miner, Telegram &telegram) { return true; }
 
     static State *instance() {
         static VisitBankAndDepositGold in;
@@ -85,6 +91,7 @@ public:
     void execute(Miner *entity);
     void enter(Miner *entity);
     void exit(Miner* entity);
+    bool onMessage(Miner *miner, Telegram &telegram) { return true; }
 
     static State *instance() {
         static GoHomeAndSleepThrested in;

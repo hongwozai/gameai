@@ -34,6 +34,11 @@ bool Miner::Thirsty()
     }
 }
 
+bool Miner::handleMessage(Telegram &telegram)
+{
+    return machine.handleMessage(telegram);
+}
+
 void EnterMinerAndDigForNugget::execute(Miner *entity)
 {
     entity->goldCarried++;
@@ -42,11 +47,12 @@ void EnterMinerAndDigForNugget::execute(Miner *entity)
     cout << "id: " << entity->getID() << ":"
          << "Pickin' up a nugget" << endl;
 
+    if (entity->Thirsty()) {
+        // entity->machine.changeState(QuenchThirst::instance());
+        entity->machine.changeState(GoHomeAndSleepThrested::instance());
+    }
     if (entity->PocketFull()) {
         entity->machine.changeState(VisitBankAndDepositGold::instance());
-    }
-    if (entity->Thirsty()) {
-        entity->machine.changeState(QuenchThirst::instance());
     }
 }
 
@@ -80,7 +86,10 @@ void VisitBankAndDepositGold::execute(Miner *)
 {}
 
 void GoHomeAndSleepThrested::enter(Miner *)
-{}
+{
+    cout << "Miner Bob go home" << endl;
+    MessageManager::instance()->dispatchMessage(MinerBob, ELSA, 0, 0, 0);
+}
 void GoHomeAndSleepThrested::exit(Miner *)
 {}
 void GoHomeAndSleepThrested::execute(Miner *)

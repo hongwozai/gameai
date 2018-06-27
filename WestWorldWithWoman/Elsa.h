@@ -38,6 +38,10 @@ public:
         machine.update();
     }
 
+    bool handleMessage(Telegram &telegram) {
+        return machine.handleMessage(telegram);
+    }
+
     ~Elsa() {}
 
 public:
@@ -67,6 +71,8 @@ public:
         cout << "Elsa go away" << endl;
     }
 
+    bool onMessage(Elsa *elsa, Telegram &telegram) { return true; }
+
     static VisitBashroom *instance() {
         static VisitBashroom vb;
         return &vb;
@@ -89,6 +95,11 @@ public:
     void enter(Elsa *entity) {}
 
     void exit(Elsa *entity) {}
+
+    bool onMessage(Elsa *elsa, Telegram &telegram) {
+        cout << "hello " << telegram.sender << endl;
+        return true;
+    }
 
 public:
 
@@ -113,8 +124,33 @@ public:
 
     void exit(Elsa *entity) {}
 
+    bool onMessage(Elsa *elsa, Telegram &telegram) { return true; }
+
     static Sweet *instance() {
         static Sweet sw;
+        return &sw;
+    }
+};
+
+class Cooking : public State<Elsa>
+{
+public:
+
+    void execute(Elsa *entity) {
+        entity->fatigue++;
+        cout << "Elsa Cooking ..." << endl;
+    }
+
+    void enter(Elsa *entity) {
+        cout << "Elsa Start Cooking." << endl;
+    }
+
+    void exit(Elsa *entity) {}
+
+    bool onMessage(Elsa *elsa, Telegram &telegram) { return true; }
+
+    static Cooking *instance() {
+        static Cooking sw;
         return &sw;
     }
 };

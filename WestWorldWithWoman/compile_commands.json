@@ -1,0 +1,17 @@
+[
+    {
+        "command": "c++ -c -g3 -Wall -I/home/zeya/workspace/gameai/WestWorldWithWoman/inc -std=c++11 -o BaseGameEntity.o /home/zeya/workspace/gameai/WestWorldWithWoman/BaseGameEntity.cpp",
+        "directory": "/home/zeya/workspace/gameai/WestWorldWithWoman",
+        "file": "/home/zeya/workspace/gameai/WestWorldWithWoman/BaseGameEntity.cpp"
+    },
+    {
+        "command": "c++ -c -g3 -Wall -I/home/zeya/workspace/gameai/WestWorldWithWoman/inc -std=c++11 -o Main.o /home/zeya/workspace/gameai/WestWorldWithWoman/Main.cpp",
+        "directory": "/home/zeya/workspace/gameai/WestWorldWithWoman",
+        "file": "/home/zeya/workspace/gameai/WestWorldWithWoman/Main.cpp"
+    },
+    {
+        "command": "c++ -c -g3 -Wall -I/home/zeya/workspace/gameai/WestWorldWithWoman/inc -std=c++11 -o Miner.o /home/zeya/workspace/gameai/WestWorldWithWoman/Miner.cpp",
+        "directory": "/home/zeya/workspace/gameai/WestWorldWithWoman",
+        "file": "/home/zeya/workspace/gameai/WestWorldWithWoman/Miner.cpp"
+    }
+]

@@ -11,10 +11,45 @@ int main(int argc, char *argv[])
 {
     Miner miner(MinerBob);
     miner.machine.setCurrentState(EnterMinerAndDigForNugget::instance());
+    EntityMgr->registerEntity(MinerBob, &miner);
 
     Elsa elsa;
     elsa.machine.setGlobalState(WifeGlobalState::instance());
     elsa.machine.setCurrentState(Sweet::instance());
+    EntityMgr->registerEntity(ELSA, &elsa);
+
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
+    miner.update();
     elsa.update();
     elsa.update();
     elsa.update();
